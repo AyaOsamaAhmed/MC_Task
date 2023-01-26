@@ -11,6 +11,8 @@ import androidx.navigation.NavController
 import com.aya.mc_task.base.BaseFragment
 import com.aya.mc_task.core.extension.observe
 import com.aya.mc_task.databinding.HomeFragmentBinding
+import com.aya.mc_task.feature.fragment.home.data.AthletesItem
+import com.aya.mc_task.feature.fragment.home.ui.adapter.HomeAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +22,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(){
     private lateinit var navController : NavController
     override val mViewModel: HomeViewModel by viewModels()
 
-    //  private val adapterCategory = CategoryAdapter(::onItemClicked)
+    private val adapter = HomeAdapter(::onItemClicked)
 
     override fun onFragmentReady() {
         mViewModel.apply {
@@ -28,11 +30,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(){
                 handleViewState(it)
             }
         }
-
-
         binding.apply {
-
-           // rvCategory.adapter = adapterCategory
+            rvUser.adapter = adapter
         }
     }
     override fun onCreateView(
@@ -55,14 +54,14 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(){
             }
             is HomeAction.ShowFailureMsg -> showToast(action.message)
             is HomeAction.HomeData -> {
-               // adapterCategory.submitList(action.data.productCategories)
+                adapter.submitList(action.data.athletes)
 
             }
          }
     }
 
-  /*  private fun onItemClicked(item: CategoryItem) {
-        navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment(item.id))
+    private fun onItemClicked(item: AthletesItem) {
+      //  navController.navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment(item.id))
     }
- */
+
 }

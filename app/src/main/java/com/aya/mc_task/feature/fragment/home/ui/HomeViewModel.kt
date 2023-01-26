@@ -5,14 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.aya.mc_task.base.Action
 import com.aya.mc_task.base.AndroidBaseViewModel
 import com.aya.mc_task.core.network.Resource
-import com.aya.mc_task.feature.fragment.home.data.HomeResponse
+import com.aya.mc_task.feature.fragment.home.data.HomeItem
 import com.aya.mc_task.feature.fragment.home.domain.HomeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
 sealed class HomeAction  : Action {
-    data class HomeData(val data: HomeResponse) : HomeAction()
+    data class HomeData(val data: HomeItem) : HomeAction()
     data class ShowLoading(val show: Boolean) : HomeAction()
     data class ShowFailureMsg(val message: String?) : HomeAction()
 }
@@ -42,7 +42,7 @@ class HomeViewModel @Inject constructor(
 
 
     private fun handleHomeSuccess(
-        response: HomeResponse
+        response: HomeItem
     ) {
             produce(HomeAction.HomeData(response))
 

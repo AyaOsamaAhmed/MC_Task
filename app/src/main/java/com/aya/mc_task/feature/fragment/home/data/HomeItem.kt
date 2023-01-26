@@ -6,10 +6,10 @@ import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
-data class HomeResponse(
+data class HomeItem(
 
     @field:SerializedName("athletes")
-    val athletes: List<AthletesResponse>? = null,
+    var athletes: List<AthletesItem>? = null,
 
 
     ) : Parcelable
