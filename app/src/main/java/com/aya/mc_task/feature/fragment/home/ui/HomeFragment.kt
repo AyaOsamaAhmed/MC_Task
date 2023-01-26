@@ -23,11 +23,11 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(){
     //  private val adapterCategory = CategoryAdapter(::onItemClicked)
 
     override fun onFragmentReady() {
-      /*  mViewModel.apply {
+        mViewModel.apply {
             observe(viewState) {
                 handleViewState(it)
             }
-        }*/
+        }
 
 
         binding.apply {
@@ -50,9 +50,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(){
     private fun handleViewState(action: HomeAction) {
         when (action) {
             is HomeAction.ShowLoading -> {
-                if (action.show) {
 
-                }
                 showProgress(action.show)
             }
             is HomeAction.ShowFailureMsg -> showToast(action.message)
