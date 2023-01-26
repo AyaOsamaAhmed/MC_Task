@@ -1,4 +1,4 @@
-package com.aya.mc_task.feature.fragment.home.ui
+package com.aya.mc_task.feature.fragment.details.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,30 +8,33 @@ import androidx.navigation.fragment.NavHostFragment
 import com.aya.mc_task.R
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.fragment.navArgs
 import com.aya.mc_task.base.BaseFragment
 import com.aya.mc_task.core.extension.observe
-import com.aya.mc_task.databinding.HomeFragmentBinding
+import com.aya.mc_task.databinding.DetailsFragmentBinding
 import com.aya.mc_task.feature.fragment.home.data.AthletesItem
+import com.aya.mc_task.feature.fragment.home.ui.HomeAction
+import com.aya.mc_task.feature.fragment.home.ui.HomeViewModel
 import com.aya.mc_task.feature.fragment.home.ui.adapter.HomeAdapter
+import com.aya.mc_task.utils.setGlideImageUrl
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(){
+class DetailsFragment : BaseFragment<DetailsFragmentBinding, HomeViewModel>(){
 
     private lateinit var nav : NavHostFragment
     private lateinit var navController : NavController
     override val mViewModel: HomeViewModel by viewModels()
 
-    private val adapter = HomeAdapter(::onItemClicked)
+    private val args: DetailsFragmentArgs by navArgs()
 
     override fun onFragmentReady() {
-        mViewModel.apply {
-            observe(viewState) {
-                handleViewState(it)
-            }
-        }
+
+        val item = args.item
         binding.apply {
-            rvUser.adapter = adapter
+            setGlideImageUrl(image,item?.image,progressBar)
+           binding.name.text = item?.name
+            binding.desc.text = item?.brief
         }
     }
     override fun onCreateView(
@@ -54,14 +57,12 @@ class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>(){
             }
             is HomeAction.ShowFailureMsg -> showToast(action.message)
             is HomeAction.HomeData -> {
-                adapter.submitList(action.data.athletes)
+
 
             }
          }
     }
 
-    private fun onItemClicked(item: AthletesItem) {
-        navController.navigate(HomeFragmentDirections.actionHomeFragmentToDetailsFragment(item))
-    }
+
 
 }

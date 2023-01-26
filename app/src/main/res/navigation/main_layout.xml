@@ -10,5 +10,19 @@
         android:name="com.aya.mc_task.feature.fragment.home.ui.HomeFragment"
         tools:layout="@layout/home_fragment">
 
+        <action
+            android:id="@+id/action_HomeFragment_to_DetailsFragment"
+            app:destination="@id/DetailsFragment"
+            />
     </fragment>
+    <fragment android:id="@+id/DetailsFragment"
+        android:name="com.aya.mc_task.feature.fragment.details.ui.DetailsFragment"
+        tools:layout="@layout/details_fragment">
+
+        <argument
+            android:name="item"
+            app:argType="com.aya.mc_task.feature.fragment.home.data.AthletesItem"
+            />
+    </fragment>
+
 </navigation>

@@ -23,6 +23,7 @@ class HomeViewModel @Inject constructor(
     private val homeUseCase: HomeUseCase
 ) : AndroidBaseViewModel<HomeAction>(app) {
 
+    var data = HomeItem()
     init {
         homePage()
     }
@@ -44,6 +45,7 @@ class HomeViewModel @Inject constructor(
     private fun handleHomeSuccess(
         response: HomeItem
     ) {
+             data = response
             produce(HomeAction.HomeData(response))
 
     }
